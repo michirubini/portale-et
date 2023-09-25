@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Portale Clienti</title>
+</head>
+<body>
+    <h1>Benvenuto nel Portale Clienti</h1>
+    <p>Compila il seguente modulo per ottenere l'assegnazione dei venditori in base alle tue preferenze:</p>
+    
+    <form method="POST">
+        <label for="tipo">Tipo di veicolo:</label>
+        <select name="tipo" id="tipo">
+            <option value="nuova_km0">Nuova/KM0</option>
+            <option value="semestrale_aziendale">Semestrale Aziendale</option>
+            <option value="usata">Usata</option>
+        </select>
+        <br><br>
+        
+        <label for="finanziamento">Finanziamento:</label>
+        <select name="finanziamento" id="finanziamento">
+            <option value="finanziamento_si">Si</option>
+            <option value="finanziamento_no">No</option>
+        </select>
+        <br><br>
+
+        <label for="permuta">Permuta:</label>
+        <select name="permuta" id="permuta">
+            <option value="permuta_si">Si</option>
+            <option value="permuta_no">No</option>
+        </select>
+        <br><br>
+
+        <label for="zona">Zona di interesse:</label>
+        <select name="zona" id="zona">
+            <option value="pieve_di_cento">Pieve di Cento</option>
+            <option value="25_km">25 Km</option>
+            <option value="bologna_modena_ferrara">Bologna/Modena/Ferrara</option>
+        </select>
+        <br><br>
+
+        <label for="età">Età:</label>
+        <select name="età" id="età">
+            <option value="18_28">18-28</option>
+            <option value="29_39">29-39</option>
+            <option value="40_50">40-50</option>
+            <option value="51_61">51-61</option>
+            <option value="62+">62+</option>
+        </select>
+        <br><br>
+
+        <label for="consulenza">Consulenza preferita:</label>
+        <select name="consulenza" id="consulenza">
+            <option value="idee_chiare">Idee chiare</option>
+            <option value="multimarca">Multimarca</option>
+        </select>
+        <br><br>
+
+        <label for="sesso">Sesso:</label>
+        <select name="sesso" id="sesso">
+            <option value="uomo">Uomo</option>
+            <option value="donna">Donna</option>
+        </select>
+        <br><br>
+
+        <label for="segmento">Segmento preferito:</label>
+        <select name="segmento" id="segmento">
+            <option value="utilitaria">Utilitaria</option>
+            <option value="suv">SUV</option>
+            <option value="berlina">Berlina</option>
+        </select>
+        <br><br>
+
+        <label for="budget">Budget:</label>
+        <select name="budget" id="budget">
+            <option value="0_10">0-10</option>
+            <option value="11_21">11-21</option>
+            <option value="22_32">22-32</option>
+            <option value="33_43">33-43</option>
+            <option value="44+">44+</option>
+        </select>
+        <br><br>
+
+        <input type="submit" value="Ottieni l'assegnazione">
+    </form>
+</body>
+</html>

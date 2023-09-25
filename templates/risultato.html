@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Risultato Assegnazione Venditori</title>
+</head>
+<body>
+    <h1>Risultato Assegnazione Venditori</h1>
+    
+    <p>Il cliente è stato assegnato ai seguenti venditori in ordine di probabilità di chiusura:</p>
+
+    <ol>
+        <li><strong>{{ venditori[0][0] }}</strong> 👑 con punteggio {{ venditori[0][1] }} (Migliore)</li>
+        <br> <!-- Spazio aggiunto -->
+        
+        {% if venditori|length > 1 %}
+            <li><strong>{{ venditori[1][0] }}</strong> 🥈 con punteggio {{ venditori[1][1] }} (Secondo migliore)</li>
+            <br> <!-- Spazio aggiunto -->
+        {% endif %}
+        
+        {% if venditori|length > 2 %}
+            <li><strong>{{ venditori[2][0] }}</strong> 🥉 con punteggio {{ venditori[2][1] }} (Terzo migliore)</li>
+            <br> <!-- Spazio aggiunto -->
+        {% endif %}
+        
+        {% if venditori|length > 3 %}
+            <li><strong>{{ venditori[3][0] }}</strong> con punteggio {{ venditori[3][1] }}</li>
+            <br> <!-- Spazio aggiunto -->
+        {% endif %}
+        
+        {% if venditori|length > 4 %}
+            <li><strong>{{ venditori[4][0] }}</strong> con punteggio {{ venditori[4][1] }}</li>
+            <br> <!-- Spazio aggiunto -->
+        {% endif %}
+        
+        {% if venditori|length > 5 %}
+            <li><strong>{{ venditori[5][0] }}</strong> con punteggio {{ venditori[5][1] }}</li>
+            <br> <!-- Spazio aggiunto -->
+        {% endif %}
+        
+        {% if venditori|length > 6 %}
+            <li><strong>{{ venditori[6][0] }}</strong> con punteggio {{ venditori[6][1] }}</li>
+            <br> <!-- Spazio aggiunto -->
+        {% endif %}
+    </ol>
+</body>
+</html>
+
+
