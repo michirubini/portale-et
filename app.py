@@ -1,7 +1,9 @@
 # TINDET 
 
 from flask import Flask, request, render_template, redirect, url_for, flash
-from flask_login import LoginManager, UserMixin, login_user, login_required, logout_user, current_user
+from flask_login import LoginManager, UserMixin, login_user, login_required, logout_user
+from datetime import timedelta
+from flask import Flask, session
 
 app = Flask(__name__, template_folder="templates")
 app.secret_key = 'your_secret_key_here'
@@ -10,14 +12,16 @@ login_manager = LoginManager()
 login_manager.login_view = 'login'
 login_manager.init_app(app)
 
+# Imposta la durata della sessione a 20 minuti
+app.config['PERMANENT_SESSION_LIFETIME'] = timedelta(minutes=20)
+
 class User(UserMixin):
     def __init__(self, id):
         self.id = id
 
 # Dizionario di utenti con le loro password (da sostituire con un sistema di autenticazione più sicuro)
-
 users = {
-    'admin': 'password1',  # Aggiungi qui il nome utente e la password
+    'admin': 'admin',
     'utente2': 'password2',
     # Aggiungi gli altri utenti qui
 }
@@ -26,30 +30,38 @@ users = {
 def load_user(user_id):
     return User(user_id)
 
+
+@app.route('/')
+def welcome():
+    return render_template('welcome.html')
+
+
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     if request.method == 'POST':
-        if 'username' in request.form and 'password' in request.form:
-            username = request.form['username']
-            password = request.form['password']
-            if username in users and users[username] == password:
-                user = User(username)
-                login_user(user)
-                flash('Login effettuato con successo!', 'success')  # Aggiungi un messaggio di successo
-                return redirect(url_for('index'))
-            else:
-                flash('Credenziali non valide. Riprova.', 'error')  # Aggiungi un messaggio di errore
-        else:
-            flash('Campi mancanti nel modulo.', 'error')  # Aggiungi un messaggio di errore per campi mancanti
-    return render_template('login.html')
+        username = request.form['username']
+        password = request.form['password']
 
+        if username in users and users[username] == password:
+            user = User(username)
+            login_user(user)
+            flash('Login effettuato con successo!', 'success')  # Aggiungi un messaggio di successo
+            return redirect(url_for('index'))
+        else:
+            flash('Credenziali non valide. Riprova.', 'error')  # Aggiungi un messaggio di errore
+    return render_template('login2.html')
 
 @app.route('/logout')
 @login_required
 def logout():
     logout_user()
     flash('Logout effettuato con successo!', 'success')  # Aggiungi un messaggio di successo
-    return redirect(url_for('index'))
+    return redirect(url_for('login'))
+
+@app.route('/')
+@login_required
+def index():
+    return render_template('index.html')
 
 venditori = {
     "Mirko": {
@@ -236,37 +248,37 @@ def calcola_punteggio_venditore(venditore, cliente):
 
     return punteggio
 
-# Cliente con le sue preferenze. INSERIRE QUI SOTTO LA RICHIESTA DEL CLIENTE
-@app.route("/", methods=["GET", "POST"])
+# Pagina per l'assegnazione del cliente a un venditore
+@app.route('/', methods=['POST'])
 @login_required
-def index():
-    if request.method == "POST":
-        cliente = {
-            "tipo": request.form["tipo"],
-            "finanziamento": request.form["finanziamento"],
-            "permuta": request.form["permuta"],
-            "zona": request.form["zona"],
-            "età": request.form["età"],
-            "consulenza": request.form["consulenza"],
-            "sesso": request.form["sesso"],
-            "segmento": request.form["segmento"],
-            "budget": request.form["budget"],
-        }
+def assegna():
+    # Cliente con le sue preferenze. INSERIRE QUI SOTTO LA RICHIESTA DEL CLIENTE
+    cliente = {
+        "tipo": request.form["tipo"],
+        "finanziamento": request.form["finanziamento"],
+        "permuta": request.form["permuta"],
+        "zona": request.form["zona"],
+        "età": request.form["età"],
+        "consulenza": request.form["consulenza"],
+        "sesso": request.form["sesso"],
+        "segmento": request.form["segmento"],
+        "budget": request.form["budget"],
+    }
 
-        venditori_ordinati = []
+    venditori_ordinati = []
 
-        for venditore, punteggi in venditori.items():
-            punteggio_venditore = calcola_punteggio_venditore(punteggi, cliente)
-            venditori_ordinati.append((venditore, punteggio_venditore))
+    for venditore, punteggi in venditori.items():
+        punteggio_venditore = calcola_punteggio_venditore(punteggi, cliente)
+        venditori_ordinati.append((venditore, punteggio_venditore))
 
-        venditori_ordinati.sort(key=lambda x: x[1], reverse=True)
+    venditori_ordinati.sort(key=lambda x: x[1], reverse=True)
 
-        return render_template("risultato.html", venditori=venditori_ordinati)
+    return render_template("risultato.html", venditori=venditori_ordinati)
 
-    return render_template("index.html")
-
-if __name__ == "__main__":
+if __name__ == '__main__':
     app.run(debug=True)
+
+
 
 
 
