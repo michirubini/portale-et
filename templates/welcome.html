@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    .wrapper {
+      height: 100vh;
+      /* Questa parte è importante per il posizionamento al centro */
+      display: grid;
+      place-items: center;
+    }
+
+    body {
+      /*background-image: url('https://ilbolive.unipd.it/sites/default/files/2021-07/n_intelligenza_artificiale.jpeg'); /* Sostituisci con il tuo URL di immagine */
+      background-size: cover; /* Per adattare l'immagine allo schermo */
+      background-repeat: no-repeat; /* Per evitare la ripetizione dell'immagine */
+      background-attachment: fixed; /* Per fissare l'immagine nello sfondo */
+    }
+
+    .title {
+      font-family: monospace;
+      font-size: 1.5em; /* Imposta una dimensione del font più piccola */
+      font-weight: bold;
+      color: gray; /* Cambiato il colore del testo in grigio */
+      margin-bottom: 10px; /* Ridotto lo spazio inferiore tra il titolo e la scritta scorrevole */
+    }
+
+    .typing-demo {
+      width: 65ch;
+      animation: typing 2s steps(22), blink .5s step-end infinite alternate;
+      white-space: nowrap;
+      overflow: hidden;
+      border-right: 3px solid;
+      font-family: monospace;
+      font-size: 2em;
+      font-weight: bold;
+      color: rgb(12, 12, 12); /* Colore originale della scritta scorrevole */
+    }
+
+    @keyframes typing {
+      from {
+        width: 0;
+      }
+    }
+
+    @keyframes blink {
+      50% {
+        border-color: transparent;
+      }
+    }
+  </style>
+  <title>Benvenuto</title>
+</head>
+<body>
+  <div class="wrapper">
+    <div class="title">
+      Varca la soglia dell'infinita possibilità...
+    </div>
+    <div class="typing-demo">
+      Benvenuti nell'epico regno dell'intelligenza artificiale by MIX
+    </div>
+    <a href="{{ url_for('login') }}">Clicca qui per il login</a>
+  </div>
+</body>
+</html>
